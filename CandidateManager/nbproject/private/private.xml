@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/ADMIN/Documents/NetBeansProjects/CandidateManager/src/entity/Fresher.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/NetBeansProjects/CandidateManager/src/entity/Experience.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/NetBeansProjects/CandidateManager/src/mock/Data.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/NetBeansProjects/CandidateManager/src/bo/CandidateBo.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/NetBeansProjects/CandidateManager/src/util/Validate.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/NetBeansProjects/CandidateManager/src/main/CandidateManager.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/NetBeansProjects/CandidateManager/src/entity/Candidate.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/NetBeansProjects/CandidateManager/src/entity/Intern.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/NetBeansProjects/CandidateManager/src/util/Helper.java</file>
-            <file>file:/C:/Users/ADMIN/Documents/NetBeansProjects/CandidateManager/src/util/iConstant.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

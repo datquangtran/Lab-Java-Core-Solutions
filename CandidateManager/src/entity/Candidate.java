@@ -114,5 +114,5 @@ public class Candidate {
         this.address = Validate.getString("Enter address: ", "Invalid address.", iConstant.ADDRESS);
         this.phone = Validate.getString("Enter phone: ", "Invalid phone number.", iConstant.PHONE);
         this.email = Validate.getString("Enter email: ", "Invalid email address.", iConstant.EMAIL);
-    }
+    } 
 }

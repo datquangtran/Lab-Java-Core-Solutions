@@ -100,7 +100,10 @@ public class CandidateBo {
             System.out.println("\nNot found.");
         } else {
             System.out.println("\nThe candidates found: ");
-            listResult.forEach(System.out::println);
+            for (Candidate candidate : listResult) {
+                System.out.println(candidate.toString());
+            } 
+            //listResult.forEach(System.out::println);
         }
     }
 
