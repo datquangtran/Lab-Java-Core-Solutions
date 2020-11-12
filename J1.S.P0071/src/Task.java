@@ -1,13 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Admin
- */
 public class Task {
 
     private Validation check = new Validation();
@@ -100,8 +90,12 @@ public class Task {
     public void input() {
         this.requirementName = check.inputString("Enter Name:");
         this.date = check.inputDate("Enter date:");
-        this.planFrom = check.inputHours("Enter plan from:");
-        this.planTo = check.inputHours("Enter plan to:");
+        while(true){
+            this.planFrom = check.inputHours("Enter plan from :");
+            this.planTo = check.inputHours("Enter plan to:");
+            if((this.planFrom < this.planTo)) break;
+            else System.err.println("Enter Time to end > time to begin!Pls retype:");
+        }
         this.assign = check.inputString("Enter assign:");
         this.reviewer = check.inputString("Enter reviewer:");
     }

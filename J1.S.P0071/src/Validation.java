@@ -69,15 +69,8 @@ public class Validation {
         //force user input exectly a date
         while (true) {
             try {
-                Date date = dateFormat.parse(scanner.nextLine());
-                //get current date
-                Date curDate = Calendar.getInstance().getTime();
-                //check range of date
-                if (curDate.compareTo(date) < 0) {
-                    System.out.print("Please input date that before current date: ");
-                } else {
-                    return dateFormat.format(date);
-                }
+                Date date = dateFormat.parse(scanner.nextLine());        
+                return dateFormat.format(date);
             } catch (Exception e) {
                 System.out.print("Please input valid date (dd-MM-yyyy): ");
             }
@@ -91,7 +84,7 @@ public class Validation {
             try {
                 String input = scanner.nextLine();
                 float number = 0;
-                if (input.matches("[0-9]+|[0-9]+.[05]") && Float.parseFloat(input) >= 8
+                if (input.matches("[0-9]+|[0-9]+.[05]([0]+)?") && Float.parseFloat(input) >= 8
                         && Float.parseFloat(input) <= 17.5) {
                     number = Float.parseFloat(input);
                     return number;

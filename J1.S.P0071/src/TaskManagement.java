@@ -37,10 +37,10 @@ public class TaskManagement {
         if (this.list.isEmpty()) {
             t.setID(1);
         } else {
-            for (int i = list.size() - 1; i >= 0; i--) {
-                t.setID(this.list.get(i).getID() + 1);
-                break;
-            }
+//            for (int i = list.size() - 1; i >= 0; i--) {
+                t.setID(this.list.get(list.size() - 1).getID() + 1);
+//                break;
+//            }
         }
         showmenuTask();
         int index = check.getInt("Enter your choice", 1, 4);
