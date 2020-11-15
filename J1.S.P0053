@@ -1,0 +1,128 @@
+
+import java.util.Scanner;
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+/**
+ *
+ * @author ADMIN
+ */
+public class Main {
+
+    private static final Scanner in = new Scanner(System.in);
+
+    public static int getInt(int min, int max) {
+        
+        while (true) {
+            try {
+                int number = Integer.parseInt(in.nextLine()); // ép kiểu dữ liệu nhập vào về int
+                if (number < min || number > max) {   //kiểm tra điều kiện có nhập đúng sô nguyên > 0 không
+                    System.out.print("Please input another integer in range: "); // hiển thị thông báo lỗi
+                } else {
+                    return number;
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Please input an integer number: ");  // hiển thị thông báo lỗi
+            }
+        }
+    }
+    
+    private static int[] value(){
+        System.out.println("Enter number of array");
+        int n = getInt(0,100);
+        int[] a= new int[n];
+        for (int i = 0; i < n; i++) {
+            System.out.println("Enter number of array ["+i+"]: ");
+            a[i] = getInt(-100,100);
+        }
+        return a;
+    }
+     private static void print(int[] a) {
+        for (int i = 0; i < a.length; i++) {
+            System.out.print(a[i] + " ");
+        }
+         System.out.println("");
+    }
+    private static void sortAscending(int[] a) {
+        int length =  a.length;
+        if(length == 0){
+            System.out.println("Empty");
+            return;
+        }
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length - i - 1; j++) {
+                if (a[j] > a[j + 1]) {
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+        }
+        System.out.println();
+        print(a);
+    }
+    private static void sortDescending(int[] a) {
+        int length =  a.length;
+        if(length == 0){
+            System.out.println("Empty");
+            return;
+        }
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a.length - i - 1; j++) {
+                if (a[j] < a[j + 1]) {
+                    int temp = a[j];
+                    a[j] = a[j + 1];
+                    a[j + 1] = temp;
+                }
+            }
+        }
+        System.out.println();
+        print(a);
+    }
+    private static int menu(){
+        System.out.println("1.Input");
+        System.out.println("2.Sort Acsending");
+        System.out.println("3.Sort Decsedning");
+        System.out.println("4. Exit");
+        int choice = getInt(1,4);
+        return choice;
+    }
+    public static void main(String[] args) {
+        int a[] = new int[0];
+        while(true){
+            int choice = menu();
+            switch(choice){
+                case 1:
+                    a = value();
+                    break;
+                case 2:
+                    sortAscending(a);
+                    break;
+                case 3:
+                    sortDescending(a);
+                    break;
+                case 4:
+                    return;
+            }
+        }
+    }
+
+}
+
+// i= 0
+// 7 9 6 8 5
+// 9 7 6 8 5
+// 9 7 6 8 5
+// 9 7 8 6 5
+//j = 0 7 9 6 8 5 
+//j = 1 7 6 9 8 5 
+//j = 2 7 6 8 9 5 
+//j = 3 7 6 8 5 9 
+
+//i = 1
+// 6 7 8 5 9 j = 0
+// 6 7 5 8 9 j = 1
+
