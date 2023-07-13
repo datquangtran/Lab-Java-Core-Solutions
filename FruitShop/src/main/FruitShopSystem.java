@@ -1,9 +1,8 @@
 package main;
 
-import bo.FruitBo;
-import bo.OrderBo;
+import bo.FruitManager;
+import bo.OrderManager;
 import mock.Data;
-import util.Helper;
 import util.Validate;
 
 import java.util.ArrayList;
@@ -13,28 +12,30 @@ public class FruitShopSystem {
     public static void main(String[] args) {
 
         // load data from mock data
-        FruitBo fruitBo = new FruitBo(Data.listFruit);
-        OrderBo orderBo = new OrderBo(Data.listOrder);
+        FruitManager fruitBo = new FruitManager(Data.listFruit);
+        OrderManager orderBo = new OrderManager();
 
         boolean flag = true;
         do {
-            Helper.menu();
+            System.out.println("\nFRUIT SHOP SYSTEM");
+            System.out.println("1. Create fruit");
+            System.out.println("2. View orders");
+            System.out.println("3. Shopping (for buyer)");
+            System.out.println("4. Exit");
             int choice = Validate.getInt("Please choice one option [1-4]: ", "Only choice [1 - 4].", 1, 4);
             switch (choice) {
                 case 1:
-                    fruitBo.addFruit();
-                    fruitBo.displayListFruit();
+                    fruitBo.createFruit();
                     break;
                 case 2:
-                    orderBo.displayListOrder();
+                    orderBo.viewOrder();
                     break;
                 case 3:
-                    fruitBo.displayListFruit();
-                    orderBo.addOrder(fruitBo.getList());
+                    orderBo.shopping();
                     break;
                 case 4:
-                    flag = false;
-                    break;
+                    return;
+
             }
         } while (flag);
     }

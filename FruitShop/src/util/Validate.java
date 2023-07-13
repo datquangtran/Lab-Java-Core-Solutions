@@ -6,20 +6,9 @@ public class Validate {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    /**
-     * Don't let anyone instantiate this class.
-     */
     private Validate() {
     }
 
-    /**
-     * Returns an input integer from the keyboard.
-     *
-     * @param messageInfo message info
-     * @param min         minimum limit value
-     * @param max         maximum limit value
-     * @return the integer value
-     */
     public static int getInt(String messageInfo, String messageError, int min, int max) {
         do {
             try {
@@ -35,14 +24,6 @@ public class Validate {
         } while (true);
     }
 
-    /**
-     * Returns an input float value from the keyboard.
-     *
-     * @param messageInfo message info
-     * @param min         minimum limit value
-     * @param max         maximum limit value
-     * @return the float value
-     */
     public static float getFloat(String messageInfo, float min, float max) {
         do {
             try {
@@ -57,15 +38,21 @@ public class Validate {
             }
         } while (true);
     }
+    public static double getDouble(String messageInfo, double min, double max) {
+        do {
+            try {
+                System.out.print(messageInfo);
+                double number = Double.parseDouble(scanner.nextLine());
+                if (number >= min && number <= max) {
+                    return number;
+                }
+                System.out.println("Numeric value out of range.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid float number.");
+            }
+        } while (true);
+    }
 
-    /**
-     * Returns an input string from the keyboard.
-     *
-     * @param messageInfo  message info
-     * @param REGEX        the pattern to test string is valid or not
-     * @param messageError message error
-     * @return the string value
-     */
     public static String getString(String messageInfo, String messageError, final String REGEX) {
         do {
             System.out.print(messageInfo);
@@ -76,4 +63,22 @@ public class Validate {
             System.out.println(messageError);
         } while (true);
     }
+
+    public static boolean checkInputYN(String mess) {
+        System.out.println(mess);
+        while (true) {
+            String result = scanner.nextLine();
+
+            if (result.equalsIgnoreCase("Y")) {
+                return true;
+            }
+
+            if (result.equalsIgnoreCase("N")) {
+                return false;
+            }
+            System.err.println("Please input y/Y or n/N.");
+            System.out.print("Enter again: ");
+        }
+    }
+
 }

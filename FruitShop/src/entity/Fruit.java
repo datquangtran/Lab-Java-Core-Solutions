@@ -7,16 +7,16 @@ import java.util.List;
 
 public class Fruit {
 
-    private int fruitId;
+    private String fruitId;
     private String fruitName;
-    private float price;
+    private double price;
     private int quantity;
     private String origin;
 
     public Fruit() {
     }
 
-    public Fruit(int fruitId, String fruitName, float price, int quantity, String origin) {
+    public Fruit(String fruitId, String fruitName, double price, int quantity, String origin) {
         this.fruitId = fruitId;
         this.fruitName = fruitName;
         this.price = price;
@@ -24,19 +24,23 @@ public class Fruit {
         this.origin = origin;
     }
 
-    public int getFruitId() {
-        return fruitId;
+    public String getOrigin() {
+        return origin;
     }
 
-    public void setFruitId(int fruitId) {
-        this.fruitId = fruitId;
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getFruitId() {
+        return fruitId;
     }
 
     public String getFruitName() {
         return fruitName;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
@@ -52,35 +56,26 @@ public class Fruit {
      * Display list fruit.
      */
     public void display(int no) {
-        System.out.format("%7d %19s %16s %10.0f$ %13d\n",
+        System.out.format("%7d %19s %16s %10.0f$\n",
                 no,
                 String.format("%1$-8s", this.fruitName),
                 String.format("%1$-8s", this.origin),
-                this.price,
-                this.quantity
+                this.price
         );
     }
-    
-    /**
-     * Tests whether the fruit exists.
-     *
-     * @param list the list to store fruit
-     * @param id the id to test
-     * @return <code>true</code> if fruit exists; <code>false</code> otherwise
-     */
-    private boolean exists(List<Fruit> list, int id) {
-        return list.stream().anyMatch(f -> (f.getFruitId() == id));
+
+    private boolean exists(List<Fruit> list, String id) {
+        for (Fruit fruit : list) {
+            if (fruit.getFruitId().equalsIgnoreCase(id)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    /**
-     * Returns fruit id.
-     *
-     * @param list the list to store fruit
-     * @return the integer value
-     */
-    private int getId(List<Fruit> list) {
+    private String getId(List<Fruit> list) {
         do {
-            int id = Validate.getInt("Enter fruit ID: ", "Numeric value out of range.", 1, Integer.MAX_VALUE);
+            String id = Validate.getString("Enter fruit ID: ", "Numeric value out of range.", IConstant.FRUIT_NAME);
             if (!exists(list, id)) {
                 return id;
             }
