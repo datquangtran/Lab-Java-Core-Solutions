@@ -97,7 +97,7 @@ public class OrderManager {
         String name = Validate.getString("Enter name: ", "Invalid", IConstant.CUSTOMER_NAME);
         int count = 0;
         for (String name_key : orders.keySet()) {
-            String real_name = name_key;
+            String real_name = name_key.split("#")[0];
             if (name.equals(real_name)) {
                 count++;
             }
