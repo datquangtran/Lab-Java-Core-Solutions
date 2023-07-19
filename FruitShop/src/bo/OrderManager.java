@@ -12,12 +12,12 @@ import mock.Data;
 
 public class OrderManager {
 
-    private Hashtable<String, ArrayList<Fruit>> orders = new Hashtable();
-    private ArrayList<Fruit> fruits = new ArrayList<>();
+    private final Hashtable<String, ArrayList<Fruit>> orders = new Hashtable();
+    private final ArrayList<Fruit> listFruitsInOrder = new ArrayList<>();
 
     public Fruit getFruit(int item) {
         int count = 0;
-        for (Fruit fruit : fruits) {
+        for (Fruit fruit : listFruitsInOrder) {
             if (fruit.getQuantity() != 0) {
                 count++;
             }
@@ -28,8 +28,8 @@ public class OrderManager {
         return null;
     }
 
-    public Fruit checkFruitInOrder(ArrayList<Fruit> listOrder, String id) {
-        for (Fruit fruit : listOrder) {
+    public Fruit checkFruitInOrder(String id) {
+        for (Fruit fruit : listFruitsInOrder) {
             if (fruit.getFruitId().equalsIgnoreCase(id)) {
                 return fruit;
             }
@@ -38,7 +38,7 @@ public class OrderManager {
     }
 
     public void shopping() {
-        ArrayList<Fruit> listOrder = new ArrayList<>();
+        ArrayList<Fruit> listFruitsInShopping = new ArrayList<>();
         FruitManager fB = new FruitManager(Data.listFruit);
         while (true) {
             int item = fB.displayListFruit();
@@ -54,44 +54,52 @@ public class OrderManager {
                     1,
                     fruit.getQuantity());
             fruit.setQuantity(fruit.getQuantity() - quantity);
-            Fruit fruitInOrder = checkFruitInOrder(listOrder, fruit.getFruitId());
-            if (fruitInOrder != null) {
-                fruitInOrder.setQuantity(fruitInOrder.getQuantity() + quantity);
+            Fruit fruitInShopping = checkFruitInOrder(fruit.getFruitId());
+            if (fruitInShopping != null) {
+                fruitInShopping.setQuantity(fruitInShopping.getQuantity() + quantity);
             } else if (quantity != 0) {
-                listOrder.add(new Fruit(fruit.getFruitId(), 
-                        fruit.getFruitName(), 
-                        fruit.getPrice(), 
-                        quantity, 
+                listFruitsInShopping.add(new Fruit(fruit.getFruitId(),
+                        fruit.getFruitName(),
+                        fruit.getPrice(),
+                        quantity,
                         fruit.getOrigin()));
             }
             if (!Validate.checkInputYN("Do you want to continue? ")) {
                 break;
             }
         }
-
-        if (listOrder.isEmpty()) {
+        if (listFruitsInShopping.isEmpty()) {
             System.out.println("No Order");
         } else {
-            displayListOrder(listOrder);
+            double total = 0;
+            System.out.printf("%-15s%-15s%-15s%-15s%n", "Product", "Quantity", "Price", "Amount");
+            for (Fruit fruit : listFruitsInShopping) {
+                System.out.printf("%-15s%-15d$%-15.0f$%-15.0f%n",
+                        fruit.getFruitName(),
+                        fruit.getQuantity(),
+                        fruit.getPrice(),
+                        fruit.getPrice() * fruit.getQuantity());
+                total += fruit.getPrice() * fruit.getQuantity();
+            }
+            System.out.println("Total: " + total);
             String name = setName();
-            orders.put(name, listOrder);
+            orders.put(name, listFruitsInShopping);
         }
     }
 
-    public void displayListOrder(ArrayList<Fruit> listOrder) {
-        double total = 0;
-        System.out.printf("%-15s%-15s%-15s%-15s%n", "Product", "Quantity", "Price", "Amount");
-        for (Fruit fruit : listOrder) {
-            System.out.printf("%-15s%-15d$%-15.0f$%-15.0f%n", 
-                    fruit.getFruitName(), 
-                    fruit.getQuantity(), 
-                    fruit.getPrice(), 
-                    fruit.getPrice() * fruit.getQuantity());
-            total += fruit.getPrice() * fruit.getQuantity();
-        }
-        System.out.println("Total: $" + total);
-
-    }
+//    public void displayListOrder(ArrayList<Fruit> listOrder) {
+//        double total = 0;
+//        System.out.printf("%-15s%-15s%-15s%-15s%n", "Product", "Quantity", "Price", "Amount");
+//        for (Fruit fruit : listOrder) {
+//            System.out.printf("%-15s%-15d$%-15.0f$%-15.0f%n",
+//                    fruit.getFruitName(),
+//                    fruit.getQuantity(),
+//                    fruit.getPrice(),
+//                    fruit.getPrice() * fruit.getQuantity());
+//            total += fruit.getPrice() * fruit.getQuantity();
+//        }
+//        System.out.println("Total: " + total);
+//    }
 
     public String setName() {
         String name = Validate.getString("Enter name: ", "Invalid", IConstant.CUSTOMER_NAME);
@@ -106,15 +114,35 @@ public class OrderManager {
     }
 
     public void viewOrder() {
+//        if (orders.isEmpty()) {
+//            System.out.println("No orders");
+//            return;
+//        }
+//        for (String name : orders.keySet()) {
+//            System.out.println("Customer: " + name.split("#")[0]);
+//            ArrayList<Fruit> listOrder = orders.get(name);
+//            displayListOrder(listOrder);
+//        }
         if (orders.isEmpty()) {
             System.out.println("No orders");
             return;
         }
-        for (String name : orders.keySet()) {
-            System.out.println("Customer: " + name.split("#")[0]);
-            ArrayList<Fruit> listOrder = orders.get(name);
-            displayListOrder(listOrder);
-        }
-    }
+        orders.forEach((customerName, orderList) -> {
+            System.out.println("Customer: " + customerName.split("#")[0]);
+            double total = 0;
+            System.out.printf("%-15s%-15s%-15s%-15s%n", "Product", "Quantity", "Price", "Amount");
 
+            for (Fruit fruit : orderList) {
+                System.out.printf("%-15s%-15d$%-15.0f$%-15.0f%n",
+                        fruit.getFruitName(),
+                        fruit.getQuantity(),
+                        fruit.getPrice(),
+                        fruit.getPrice() * fruit.getQuantity());
+                total += fruit.getPrice() * fruit.getQuantity();
+            }
+            System.out.println("Total: $" + total);
+            System.out.println("--------------------");
+        });
+
+    }
 }

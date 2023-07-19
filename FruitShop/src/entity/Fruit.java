@@ -12,7 +12,7 @@ public class Fruit {
     private double price;
     private int quantity;
     private String origin;
-
+    private double amount;
     public Fruit() {
     }
 
@@ -52,47 +52,21 @@ public class Fruit {
         this.quantity = quantity;
     }
 
-    /**
-     * Display list fruit.
-     */
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+    
+
     public void display(int no) {
-        System.out.format("%7d %19s %16s %10.0f$\n",
+        System.out.format("%d.%10s %4d %10.0f$ %8.0f$\n",
                 no,
-                String.format("%1$-8s", this.fruitName),
-                String.format("%1$-8s", this.origin),
-                this.price
-        );
-    }
-
-    private boolean exists(List<Fruit> list, String id) {
-        for (Fruit fruit : list) {
-            if (fruit.getFruitId().equalsIgnoreCase(id)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private String getId(List<Fruit> list) {
-        do {
-            String id = Validate.getString("Enter fruit ID: ", "Numeric value out of range.", IConstant.FRUIT_NAME);
-            if (!exists(list, id)) {
-                return id;
-            }
-            System.out.println("ID is exist, try again.");
-        } while (true);
-    }
-
-    /**
-     * Create a fruit.
-     *
-     * @param list the list to store fruit
-     */
-    public void input(List<Fruit> list) {
-        this.fruitId = getId(list);
-        this.fruitName = Validate.getString("Enter fruit name: ", "Invalid fruit name.", IConstant.FRUIT_NAME);
-        this.price = Validate.getFloat("Enter price: ", 0, Float.MAX_VALUE);
-        this.quantity = Validate.getInt("Enter quantity: ", "Numeric value out of range.", 1, Integer.MAX_VALUE);
-        this.origin = Validate.getString("Enter fruit origin: ", "Invalid fruit origin.", IConstant.ORIGIN);
+                String.format("%1$-10s", this.fruitName),
+                this.quantity,
+                this.price,
+                this.amount);
     }
 }
